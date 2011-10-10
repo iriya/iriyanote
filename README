@@ -1,0 +1,7 @@
+Iriyanote is a simple watching note, remember how many episode you've watched.
+
+It was supported by GAE(Google App Engine). to use it a google account is required.
+
+You can simply add a anime with title, current/max episode, image to the weekly calendar, and modify the value by click the number when watched some episode.
+
+Enjoy it.

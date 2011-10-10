@@ -1,0 +1,32 @@
+body {width: 780px;margin-left:auto;margin-right:auto;text-align: center;font-family: "宋体";font-size: 12px;font-style: normal;font-weight: normal;zoom: 0;}
+p {margin-bottom: 9px;}
+.hei {color: 000000;font-family: "黑体";font-size: 14px;font-style: normal;font-weight: normal;}
+#header {background:url(../images/header.jpg); background-repeat:repeat-x;}
+#logo {background-image: url("../images/logo.jpg");background-repeat: no-repeat;margin: 0px;}
+#logotext, #statutext {padding-left: 6px;}
+#logotext a {text-decoration: none;color: #000000;}
+#welcome, #statuform {text-align: right;padding-right: 20px;}
+#statubar td {border-bottom-style: dotted;border-bottom-width: thin;}
+.content {border-top: 1px solid #cccccc;border-bottom: 1px solid #cccccc;border-left:  1px solid #cccccc;}
+table.content {margin-top: 1px;margin-bottom: 22px;}
+.content td {vertical-align: top;padding-top: 8px;padding-left: 9px;}
+.content td p {text-align: left;}
+.content .content-right {background-image: url(../images/cotent-right-bg.jpg);background-repeat: repeat-y;background-position:right;padding-left: 0px;padding-right: 0px;}
+#newnotecontainer {padding-top: 22px;padding-bottom: 56px;}
+.newnote {border: 1px solid #cccccc;}
+.newnote td {text-align: left;vertical-align: top;}
+.newnote p {margin-top: 2px;}
+.pnote {text-align: left;width: 100%;float: left; padding-bottom: 15px;}
+.pnote .imgholder {width: 64px;float: left;}
+.pnote .nameholder {width:600px; float: left;padding-left: 10px;}
+.pnote .nameholder p {margin-top: 3px;}
+.nameholder ul {padding: 0px;}
+.nameholder ul li {display: inline;float: left;font-family: 'Lucida Grande', 'Lucida Sans', sans;font-size: 10px; margin-right: 3px; position: relative;width: auto; line-height: 22px;}
+a.watched:hover {text-decoration: none;border-top: 2px solid #1175A8;color: #EFEFEF;}
+a.watched, a.watched:active, a.watched:visited {text-decoration:none; background-color: #4897FF;border: 1px solid #1175A8;color: white;font-size: 9px;padding: 1px 2px;}
+a.na:hover {text-decoration: none; border-top: 2px solid #999;color: #666;}
+a.na, a.na:active, a.na:visited {text-decoration:none; background-color: #E0E0E0;border: 1px solid #B6B6B6;color: #909090;font-size: 9px;padding: 1px 2px;}
+a.tools:hover {text-decoration: none; border-top: 2px solid #888;color: white;}
+a.tools, a.tools:active, a.tools:visited {text-decoration:none; background-color: #FF4A12;border: 1px solid #AAA;color: white;font-size: 9px;padding: 1px 2px;}
+/*a,a:hover,a:active,a:visited {text-decoration: none;}*/
+a.gray, a.gray:active, a.gray:visited {text-decoration: none; color: gray;}

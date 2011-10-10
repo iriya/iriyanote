@@ -1,0 +1,135 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@page import="com.google.appengine.api.users.User"%>
+<%@page import="com.google.code.iriyanote.NoteShelf"%>
+<%@page import="com.google.code.iriyanote.Note"%>
+<%@page import="java.util.List"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>home - iriyanote</title>
+<link href="/stylesheet/index.css" rel="stylesheet" type="text/css" />
+<%
+	User user = (User) request.getAttribute("user");
+	Integer sn = (Integer) request.getAttribute("sn");
+	NoteShelf shelf = (NoteShelf) request.getAttribute("shelf");
+	Integer dow = (Integer) request.getAttribute("dow"); // 今天周几
+	Integer dowb = (dow == 1) ? 7 : dow - 1; // 昨天周几
+	String[] weekdays = { "", "星期日", "星期一", "星期二", "星期三", "星期四", "星期五",
+			"星期六", };
+%>
+</head>
+
+<body>
+<table width="780" height="26" border="0" cellpadding="0" cellspacing="0">
+  <tr id="header">
+    <td width="28" height="26">&nbsp;</td>
+    <td width="75" height="26" id="logo">&nbsp;</td>
+    <td width="65" height="26" class="hei" id="logotext"><a href="/">随贴</a></td>
+    <td height="26" class="hei" id="welcome">欢迎：<%=user.getEmail()%></td>
+  </tr>
+  <tr id="statubar">
+  	<td colspan="2" id="statutext" height="29">共watching：<%=sn%>个</td>
+    <td colspan="2" id="statuform">
+    <a href='<%=request.getAttribute("logout") %>'>蹭得累</a></td>
+  </tr>
+</table>
+
+<%
+	for (int i = 0; i < 7; i++) {
+		int dowc = (dowb + i == 7) ? 7 : (dowb + i) % 7;
+		List<Note> notes = shelf.getNotes(dowc);
+%>
+<table width="780" border="0" cellpadding="0" cellspacing="0" class="content" onmouseover="this.style.backgroundColor='#ffffcc'"
+	onmouseout="this.style.backgroundColor='#ffffff'">
+<%
+	if (notes.size() == 0) { // 没有
+%>
+  <tr>
+    <td width="54" height="54" class="weekday"><p><span class="hei"><%=weekdays[dowc]%></span></p><p><a href="/newnote?sd=<%=dowc %>">添加</a></p></td>
+	<td width="135"><p>暂时还没有</p></td>
+    <td width="135"><p>&nbsp;</p></td>
+    <td width="135"><p>&nbsp;</p></td>
+    <td width="135"><p>&nbsp;</p></td>
+    <td width="135"><p>&nbsp;</p></td>
+	<td width="3" class="content-right">&nbsp;</td>
+  </tr>
+<%
+	}
+	if (notes.size() > 0) { // 0-5个以内
+%>
+  <tr>
+    <td width="54" height="154" class="weekday"><p><span class="hei"><%=weekdays[dowc]%></span></p><p><a href="/newnote?sd=<%=dowc %>">添加</a></p></td>
+<%
+		for (int j = 0; j < 5; j++) {
+			if(j < notes.size()) { // 存在
+				Note n = notes.get(j);
+%>
+	<td width="135">
+		<img src="<%=n.getImgUrl() %>" width="128" height="95" /><p><%=n.getName() %> <%=n.getChapter() %>/<%=n.getMaxChapter() %></p>
+		<% if(n.getStatus() == Note.STATUS_FIN) { %>
+	    <p class="gray">+1 -1 <a href="/follow?nid=<%=n.getId() %>&f=res">复活</a> 删除 完结</p>
+		<% } else { %>
+	    <p><a href="/follow?nid=<%=n.getId() %>&f=add">+1</a> <a href="/follow?nid=<%=n.getId() %>&f=sub">-1</a> <a href="/follow?nid=<%=n.getId() %>&f=ign">忽略</a> <a href="/follow?nid=<%=n.getId() %>&f=del">删除</a> <a href="/follow?nid=<%=n.getId() %>&f=fin">完结</a></p>
+		<% } %>
+	</td>
+<%
+			}
+			else { // 不存在
+%>
+	<td width="135"><p>&nbsp;</p></td>
+<%			
+			}
+		} // end for (int j = 0; j < 5; j++)
+%>
+    <td width="3" class="content-right">&nbsp;</td>
+  </tr>
+<%
+	} 
+	if (notes.size() > 5) { // 5+
+%>
+  <tr>
+    <td height="154" class="weekday"></td>
+<%
+		for (int j = 5; j < 10; j++) {
+			if(j < notes.size()) { // 存在
+				Note n = notes.get(j);   
+%>
+	<td width="135">
+		<img src="<%=n.getImgUrl() %>" width="128" height="95" /><p><%=n.getName() %> <%=n.getChapter() %>/<%=n.getMaxChapter() %></p>
+	    <% if(n.getStatus() == Note.STATUS_FIN) { %>
+	    <p class="gray">+1 -1 <a href="/follow?nid=<%=n.getId() %>&f=res">复活</a> 删除 完结</p>
+		<% } else { %>
+	    <p><a href="/follow?nid=<%=n.getId() %>&f=add">+1</a> <a href="/follow?nid=<%=n.getId() %>&f=sub">-1</a> <a href="/follow?nid=<%=n.getId() %>&f=ign">忽略</a> <a href="/follow?nid=<%=n.getId() %>&f=del">删除</a> <a href="/follow?nid=<%=n.getId() %>&f=fin">完结</a></p>
+		<% } %>
+	</td>
+<%
+			}
+			else { // 不存在
+%>
+	<td width="135"><p>&nbsp;</p></td>
+<%			
+			}
+		} // end for (int j = 0; j < 5; j++)
+%>
+    <td class="content-right">&nbsp;</td>
+  </tr>
+<%
+	}
+%>
+</table>
+<%
+	} // end for
+%>
+
+<table width="780" height="69" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center">Copyright(c)2010 随贴 iriyanote.appspots.com 版权所有</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>
