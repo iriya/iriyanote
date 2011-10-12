@@ -22,12 +22,20 @@ public class HomeServlet extends HttpServlet {
 		UserService userService = UserServiceFactory.getUserService();
         User user = userService.getCurrentUser();
         
+        String isFull = req.getParameter("full");
+        
         if (user != null) {
         	req.setAttribute("user", user);
         	PersistenceManager pm = PmFactory.getInstance().getPersistenceManager();
         	try {
+        		String addition = "";
+        		// 如果非FULL DISPLAY则只查询ACTIVE状态的
+        		if(!"1".equals(isFull)) { 
+        			addition = " && status==" + Note.STATUS_ACTIVE;
+        		}
+        		
 	        	List<Note> notes = (List<Note>) pm.newQuery("select from " + Note.class.getName() + " where author=='" + 
-	        			user.getEmail() + "' order by createTime range 0,100").execute();
+	        			user.getEmail() + "' " + addition + " order by createTime range 0,100").execute();
 	        	
 	        	req.setAttribute("shelf", new NoteShelf(notes));
 	        	req.setAttribute("sn", notes.size());

@@ -33,17 +33,6 @@
   <tr id="statubar">
   	<td colspan="2" id="statutext" height="29">共watching：<%=sn%>个</td>
     <td colspan="2" id="statuform">
-<%
-  if(request.getParameter("full") == null) {
-%>
-    <a href='/home?full=1'>DISPLAY:FULL</a>
-<%
-  } else {
-%>
-    <a href='/home'>DISPLAY:NORMAL</a>
-<%
-  } // end if
-%>
     <a href='<%=request.getAttribute("logout") %>'>蹭得累</a></td>
   </tr>
 </table>
